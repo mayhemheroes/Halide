@@ -1,0 +1,6 @@
+project: rnshah9/halide
+target: halide
+
+cmds:
+  - cmd: /repo/bin/build_halide_h /repo/LICENSE.txt @@
+    filepath: /test.h
