@@ -1,7 +1,5 @@
 include(MakeShellPath)
 
-add_subdirectory(generators)
-
 add_library(the_sort_function MODULE the_sort_function.c)
 target_link_libraries(the_sort_function PRIVATE Halide::Runtime)
 
@@ -31,7 +29,7 @@ set(TESTS
 
 # Use generator expressions to get the true output paths of these files.
 make_shell_path(PYTHONPATH
-                "${CMAKE_CURRENT_SOURCE_DIR}/generators"
+                "${CMAKE_CURRENT_SOURCE_DIR}/../generators"
                 "$<TARGET_FILE_DIR:py_aot_bit>"
                 "$<TARGET_FILE_DIR:py_stub_bit>"
                 "$<TARGET_FILE_DIR:Halide::Python>"

@@ -17,6 +17,14 @@ set(GENPARAMS_complex
 
 set(GENPARAMS_complexpy ${GENPARAMS_complex})
 
+set(GENPARAMS_bilateral_grid
+    s_sigma=8
+    auto_schedule=false)
+
+set(GENPARAMS_bilateral_grid_autoschedule
+    s_sigma=8
+    auto_schedule=true)
+
 set(_ALL_DEPS)
 
 function(_add_python_aot_and_stub_extension)
@@ -45,6 +53,10 @@ _add_python_aot_and_stub_extension(SOURCES user_context_generator.cpp GEN user_c
 
 _add_python_aot_and_stub_extension(SOURCES addconstantpy_generator.py
                                    GEN addconstantpy addconstantpy_with_offset_42 addconstantpy_with_negative_offset)
+_add_python_aot_and_stub_extension(SOURCES bilateral_grid_generator.py GEN bilateral_grid)
+# TODO: can't use autoscheduling from python until the glue code
+# is set up to enable the autoscheduler extensions at build time
+# _add_python_aot_and_stub_extension(SOURCES bilateral_grid_generator.py GEN bilateral_grid_autoschedule)
 _add_python_aot_and_stub_extension(SOURCES bitpy_generator.py GEN bitpy)
 _add_python_aot_and_stub_extension(SOURCES complexpy_generator.py GEN complexpy)
 _add_python_aot_and_stub_extension(SOURCES simplepy_generator.py GEN simplepy)

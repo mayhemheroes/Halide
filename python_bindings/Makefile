@@ -83,7 +83,7 @@ $(BIN)/src/%.o: $(ROOT_DIR)/src/%.cpp
 	@mkdir -p $(@D)
 	@$(CXX) $(CCFLAGS) -c $< -o $@
 
-$(BIN)/%_generator.o: $(ROOT_DIR)/correctness/generators/%_generator.cpp $(HALIDE_DISTRIB_PATH)/include/Halide.h
+$(BIN)/%_generator.o: $(ROOT_DIR)/generators/%_generator.cpp $(HALIDE_DISTRIB_PATH)/include/Halide.h
 	@echo Building $@...
 	@mkdir -p $(@D)
 	@$(CXX) $(CCFLAGS) -c $< -o $@
@@ -193,7 +193,7 @@ $(BIN)/%.py.cpp $(BIN)/%.a $(BIN)/%.h: $(BIN)/%.generator
 	    target=host-no_runtime$(FEATURES_$(notdir $(basename $<))) \
 	    $(GENPARAMS_$*)
 
-$(BIN)/%_generator.py: $(ROOT_DIR)/correctness/generators/%_generator.py
+$(BIN)/%_generator.py: $(ROOT_DIR)/generators/%_generator.py
 	@echo Building $@...
 	@mkdir -p $(@D)
 	@ln -s $< $@
@@ -254,6 +254,7 @@ PY_GENERATOR_OUTPUTS=\
 	addconstantpy \
 	addconstantpy_with_offset_42 \
 	addconstantpy_with_negative_offset \
+	bilateral_grid \
 	bitpy \
 	complexpy \
 	simplepy
@@ -269,11 +270,14 @@ TUTORIAL = $(shell ls $(ROOT_DIR)/tutorial/*.py)
 .PHONY: test_apps
 test_apps: $(APPS:$(ROOT_DIR)/apps/%.py=test_apps_%)
 
-test_apps_%: $(ROOT_DIR)/apps/%.py $(MODULE)
+# For simplicity of the build system, we just have every app test depend
+# on every AOT extension. Normally this would not be a good idea,
+# but it's fine for us here.
+test_apps_%: $(ROOT_DIR)/apps/%.py $(MODULE) $(GENERATOR_AOT_EXTENSIONS)
 	@echo Testing $*...
 	@mkdir -p $(TEST_TMP)
 	@# Send stdout (but not stderr) from these to /dev/null to reduce noise
-	@cd $(TEST_TMP); PYTHONPATH="$(BIN):$$PYTHONPATH" $(PYTHON) $< >/dev/null
+	@cd $(TEST_TMP); PYTHONPATH="$(BIN)/aot:$(BIN):$$PYTHONPATH" $(PYTHON) $< >/dev/null
 
 .PHONY: test_correctness
 test_correctness: $(CORRECTNESS:$(ROOT_DIR)/correctness/%.py=test_correctness_%)
@@ -284,7 +288,7 @@ test_correctness: $(CORRECTNESS:$(ROOT_DIR)/correctness/%.py=test_correctness_%)
 test_correctness_%: $(ROOT_DIR)/correctness/%.py $(MODULE) $(GENERATOR_AOT_EXTENSIONS) $(GENERATOR_STUB_EXTENSIONS)
 	@echo Testing $*...
 	@mkdir -p $(TEST_TMP)
-	@cd $(TEST_TMP); PYTHONPATH="$(ROOT_DIR)/correctness/generators:$(BIN)/aot:$(BIN)/stub:$(BIN):$$PYTHONPATH" $(PYTHON) $<
+	@cd $(TEST_TMP); PYTHONPATH="$(ROOT_DIR)/generators:$(BIN)/aot:$(BIN)/stub:$(BIN):$$PYTHONPATH" $(PYTHON) $<
 
 .PHONY: test_tutorial
 test_tutorial: $(TUTORIAL:$(ROOT_DIR)/tutorial/%.py=test_tutorial_%)

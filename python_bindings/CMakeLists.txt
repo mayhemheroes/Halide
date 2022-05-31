@@ -23,6 +23,9 @@ add_subdirectory(stub)
 
 option(WITH_TEST_PYTHON "Build Python tests" ON)
 if (WITH_TESTS AND WITH_TEST_PYTHON)
+    # add generators/ first since things in apps and correctness depend on them
+    add_subdirectory(generators)
+
     add_subdirectory(apps)
     add_subdirectory(correctness)
     add_subdirectory(tutorial)

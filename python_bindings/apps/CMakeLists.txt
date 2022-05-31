@@ -1,25 +1,9 @@
-include(PythonExtensionHelpers)
-
 set(SCRIPTS
     bilateral_grid_shell.py
     blur.py
     erode.py
     interpolate.py
     local_laplacian.py)
-
-add_python_aot_extension(py_aot_bilateral_grid
-                         GENERATOR bilateral_grid
-                         FUNCTION_NAME bilateral_grid
-                         PARAMS s_sigma=8 auto_schedule=false
-                         SOURCES bilateral_grid_generator.py)
-
-# TODO: can't use autoscheduling from python until the glue code
-# is set up to enable the autoscheduler extensions at build time
-# add_python_aot_extension(py_aot_bilateral_grid_autoschedule
-#                          GENERATOR bilateral_grid
-#                          FUNCTION_NAME bilateral_grid_autoschedule
-#                          PARAMS s_sigma=8 auto_schedule=true
-#                          SOURCES bilateral_grid_generator.py)
 
 set(PY_APPS_DEPS_bilateral_grid_shell py_aot_bilateral_grid)
 set(PY_APPS_ARGS_bilateral_grid_shell ${CMAKE_CURRENT_SOURCE_DIR}/../../apps/images/gray.png /tmp/out.png 0.1 10)
