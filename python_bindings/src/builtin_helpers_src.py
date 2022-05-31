@@ -11,16 +11,16 @@ import sys
 
 # 'print()' is consumed by `halide.print()` which is implicitly present;
 # here's our quick-n-dirty wrapper for debugging:
-def _print(*args):
+# def _print(*args):
 
-    def write(data):
-        sys.stdout.write(str(data))
+#     def write(data):
+#         sys.stdout.write(str(data))
 
-    for i, arg in enumerate(args):
-        if i:
-            write(" ")
-        write(arg)
-    write('\n')
+#     for i, arg in enumerate(args):
+#         if i:
+#             write(" ")
+#         write(arg)
+#     write('\n')
 
 
 # Everything below here is implicitly in the `halide` package
