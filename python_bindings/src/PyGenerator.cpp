@@ -175,11 +175,7 @@ void define_generator(py::module &m) {
         for (auto &s : argv_vector) {
             argv.push_back(const_cast<char *>(s.c_str()));
         }
-        std::ostringstream error_stream;
-        int result = Halide::Internal::generate_filter_main((int)argv.size(), argv.data(), error_stream, PyGeneratorFactoryProvider());
-        if (!error_stream.str().empty()) {
-            py::print(error_stream.str(), py::arg("end") = "");
-        }
+        int result = Halide::Internal::generate_filter_main((int)argv.size(), argv.data(), PyGeneratorFactoryProvider());
         if (result != 0) {
             // Some paths in generate_filter_main() will fail with user_error or similar (which throws an exception
             // due to how libHalide is built for python), but some paths just return an error code, so

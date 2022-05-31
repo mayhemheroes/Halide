@@ -33,7 +33,7 @@ class ComplexPy:
 
         g.simple_output[x, y, c] = hl.f32(g.simple_input[x, y, c])
         g.typed_buffer_output[x, y, c] = hl.f32(g.typed_buffer_input[x, y, c])
-        g.untyped_buffer_output[x, y, c] = hl.cast(g.untyped_buffer_output.output_type(), g.untyped_buffer_input[x, y, c])
+        g.untyped_buffer_output[x, y, c] = hl.cast(g.untyped_buffer_output.type(), g.untyped_buffer_input[x, y, c])
 
         intermediate = hl.Func("intermediate")
         intermediate[x, y, c] = g.simple_input[x, y, c] * g.float_arg
