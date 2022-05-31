@@ -362,18 +362,6 @@ int generate_filter_main(int argc, char **argv);
  * other than C++). */
 int generate_filter_main(int argc, char **argv, const GeneratorFactoryProvider &generator_factory_provider);
 
-/** This overload of generate_filter_main lets you provide your own provider for how to enumerate and/or create
- * the generators based on registration name; this is useful if you want to re-use the
- * 'main' logic but avoid the global Generator registry (e.g. for bindings in languages
- * other than C++). */
-int generate_filter_main(int argc, char **argv, std::ostream &cerr, const GeneratorFactoryProvider &generator_factory_provider);
-
-/** This overload of generate_filter_main lets you provide your own provider for how to enumerate and/or create
- * the generators based on registration name; this is useful if you want to re-use the
- * 'main' logic but avoid the global Generator registry (e.g. for bindings in languages
- * other than C++). */
-int generate_filter_main(int argc, char **argv, std::ostream &cerr, const GeneratorFactoryProvider &generator_factory_provider);
-
 // select_type<> is to std::conditional as switch is to if:
 // it allows a multiway compile-time type definition via the form
 //
