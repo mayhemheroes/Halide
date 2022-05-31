@@ -85,7 +85,7 @@ def test_simple(cls):
         # Inputs that can't be converted to what the receiver needs (positional)
         f = cls.call(ctx, hl.f32(3.141592), "happy")
     except hl.HalideError as e:
-        assert 'Input buffer_input requires an ImageParam or Buffer argument when using call' in str(e)
+        assert 'Input buffer_input requires an ImageParam or Buffer argument' in str(e)
     else:
         assert False, 'Did not see expected exception!'
 
