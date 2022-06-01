@@ -368,6 +368,10 @@ function(_Halide_place_dll GEN)
         return()
     endif ()
 
+    if(GEN MATCHES ".py$")
+        return()
+    endif()
+
     # Short circuit so that Halide::Halide isn't checked when importing a generator from another CMake project
     get_property(is_imported TARGET ${GEN} PROPERTY IMPORTED)
     if (is_imported)
