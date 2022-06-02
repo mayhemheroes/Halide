@@ -6,7 +6,7 @@ set(SCRIPTS
     local_laplacian.py)
 
 set(PY_APPS_DEPS_bilateral_grid_shell py_aot_bilateral_grid)
-set(PY_APPS_ARGS_bilateral_grid_shell ${CMAKE_CURRENT_SOURCE_DIR}/../../apps/images/gray.png /tmp/out.png 0.1 10)
+set(PY_APPS_ARGS_bilateral_grid_shell ${CMAKE_CURRENT_SOURCE_DIR}/../../apps/images/gray.png ${CMAKE_CURRENT_BINARY_DIR}/tmp/out.png 0.1 10)
 
 make_shell_path(PY_APPS_PYTHONPATH
                 "$<TARGET_FILE_DIR:py_aot_bilateral_grid>"
