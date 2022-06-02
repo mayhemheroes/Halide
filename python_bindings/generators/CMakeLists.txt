@@ -35,12 +35,15 @@ function(_add_python_aot_and_stub_extension)
                                  FEATURES ${FEATURES_${G}}
                                  PARAMS ${GENPARAMS_${G}}
                                  SOURCES "${ARG_SOURCES}")
-        add_python_stub_extension(py_stub_${G}
-                                  SOURCES "${ARG_SOURCES}"
-                                  GENERATOR ${G}
-                                  MODULE ${G}_stub)
+        set(_ALL_DEPS "${_ALL_DEPS} py_aot_${G}" PARENT_SCOPE)
 
-        set(_ALL_DEPS "${_ALL_DEPS} py_aot_${G} py_stub_${G}" PARENT_SCOPE)
+        if(NOT ARG_SOURCES MATCHES ".py$")
+            add_python_stub_extension(py_stub_${G}
+                                      SOURCES "${ARG_SOURCES}"
+                                      GENERATOR ${G}
+                                      MODULE ${G}_stub)
+            set(_ALL_DEPS "${_ALL_DEPS} py_stub_${G}" PARENT_SCOPE)
+        endif()
     endforeach()
 endfunction()
 

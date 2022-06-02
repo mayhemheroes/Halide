@@ -114,6 +114,10 @@ function(add_python_stub_extension TARGET)
         set(ARG_GENERATOR "${TARGET}")
     endif ()
 
+    if(ARG_GENERATOR MATCHES ".py$")
+        message(FATAL_ERROR "Python Generators cannot use (and do not need) the add_python_stub_extension() rule; they can be imported directly from Python.")
+    endif()
+
     if (NOT ARG_MODULE)
         set(ARG_MODULE "${TARGET}_stub")
     endif ()
