@@ -13,5 +13,5 @@ RUN ldd /repo/bin/build_halide_h | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I
 FROM ubuntu:22.04 as package
 
 COPY --from=builder /deps /deps
-COPY --from=builder /repo/bin/build_halide_h /repo/bin/build_halide_h
+COPY --from=builder /repo /repo
 ENV LD_LIBRARY_PATH=/deps
