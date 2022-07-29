@@ -2,5 +2,4 @@ project: halide
 target: build_halide_h
 
 cmds:
-  - cmd: /repo/bin/build_halide_h /repo/LICENSE.txt /test.h
-    filepath: /test.h
+  - cmd: /build_halide_h /repo/LICENSE.txt @@
