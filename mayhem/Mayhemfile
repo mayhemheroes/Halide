@@ -1,5 +1,6 @@
 project: halide
-target: build_halide_h
+target: build-halide-h
 
 cmds:
   - cmd: /build_halide_h /repo/LICENSE.txt @@
+image: ghcr.io/rnshah9/playground:halide
