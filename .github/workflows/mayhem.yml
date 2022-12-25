@@ -51,7 +51,8 @@ jobs:
       fail-fast: false
       matrix:
         mayhemfile:
-          - mayhem/Mayhemfile
+          - mayhem/Mayhemfile_strip_namespaces
+          - mayhem/Mayhemfile_build_halide_h
 
     steps:
       - uses: actions/checkout@v2

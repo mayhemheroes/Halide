@@ -1,0 +1,6 @@
+project: halide
+target: strip-namespaces
+
+cmds:
+  - cmd: /fuzz_strip_namespaces
+    libfuzzer: true
