@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 ubuntu:22.04 as builder
 
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cmake llvm-dev libz-dev clang libclang-14-dev liblld-12-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential cmake llvm-dev libz-dev clang libclang-14-dev liblld-12-dev pkg-config libpng-dev
 
 COPY . /repo
 WORKDIR /repo
